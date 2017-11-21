@@ -2,6 +2,12 @@
     margin-top: 40px;
 }
 
+.reg{
+    font-weight: bold;
+    margin: 0 auto;
+    max-width: 400px;
+}
+
 .form-signin{
     margin: 0 auto;
     max-width: 400px;
