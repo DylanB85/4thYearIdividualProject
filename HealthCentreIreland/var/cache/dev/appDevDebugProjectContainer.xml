@@ -93,8 +93,8 @@
     <parameter key="kernel.charset">UTF-8</parameter>
     <parameter key="kernel.container_class">appDevDebugProjectContainer</parameter>
     <parameter key="database_host">127.0.0.1</parameter>
-    <parameter key="database_port">null</parameter>
-    <parameter key="database_name">MEMBER_FORM</parameter>
+    <parameter key="database_port">3306</parameter>
+    <parameter key="database_name">member_form</parameter>
     <parameter key="database_user">root</parameter>
     <parameter key="database_password">dbpassword</parameter>
     <parameter key="mailer_transport">smtp</parameter>
@@ -445,7 +445,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-50"/>
-      <argument type="service" id="service_locator.ebdaf59977bc26dc6a191d4f5f8254cb"/>
+      <argument type="service" id="service_locator.09ed2a78ebb07fa438df2e4d861f219e"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver" public="false">
       <tag name="controller.argument_value_resolver" priority="-100"/>
@@ -613,7 +613,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>NmcLu4YRJ3NybhGNH4PHjO</argument>
+      <argument>P5o6mD4LMnOn7OQqFGV8Ac</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -623,7 +623,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>NmcLu4YRJ3NybhGNH4PHjO</argument>
+      <argument>P5o6mD4LMnOn7OQqFGV8Ac</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -1739,6 +1739,12 @@
             <argument>13</argument>
           </argument>
         </argument>
+        <argument key="AppBundle\Entity\Member" type="collection">
+          <argument key="class">Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder</argument>
+          <argument key="arguments" type="collection">
+            <argument>13</argument>
+          </argument>
+        </argument>
       </argument>
     </service>
     <service id="security.user_password_encoder.generic" class="Symfony\Component\Security\Core\Encoder\UserPasswordEncoder" public="false">
@@ -2140,18 +2146,7 @@
     <service id="debug.security.access.decision_manager" class="Symfony\Component\Security\Core\Authorization\TraceableAccessDecisionManager" public="false">
       <argument type="service" id="debug.security.access.decision_manager.inner"/>
     </service>
-    <service id="security.user.provider.concrete.in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false">
-      <call method="createUser">
-        <argument type="service" id="security.user.provider.concrete.in_memory_admin"/>
-      </call>
-    </service>
-    <service id="security.user.provider.concrete.in_memory_admin" class="Symfony\Component\Security\Core\User\User" public="false">
-      <argument>admin</argument>
-      <argument>$2y$13$INWnYjvyoyCzpUTYRWENV.dodH6g/m0XXcpxhSlXgpwVEnyA13bPK</argument>
-      <argument type="collection">
-        <argument>ROLE_ADMIN</argument>
-      </argument>
-    </service>
+    <service id="security.user.provider.concrete.in_memory" class="Symfony\Component\Security\Core\User\InMemoryUserProvider" public="false"/>
     <service id="security.firewall.map.config.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
       <argument>dev</argument>
       <argument>security.user_checker</argument>
@@ -2288,12 +2283,12 @@
     </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5a132d5cc24215.26733920</argument>
+      <argument>5a1431df0359d2.53783761</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5a132d5cc24215.26733920</argument>
+      <argument>5a1431df0359d2.53783761</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -2330,6 +2325,7 @@
       <argument type="service" id="security.encoder_factory.generic"/>
       <argument type="collection">
         <argument>Symfony\Component\Security\Core\User\User</argument>
+        <argument>AppBundle\Entity\Member</argument>
       </argument>
     </service>
     <service id="twig" class="Twig\Environment">
@@ -2893,8 +2889,8 @@
       <argument type="collection">
         <argument key="driver">pdo_mysql</argument>
         <argument key="host">127.0.0.1</argument>
-        <argument key="port">null</argument>
-        <argument key="dbname">MEMBER_FORM</argument>
+        <argument key="port">3306</argument>
+        <argument key="dbname">member_form</argument>
         <argument key="user">root</argument>
         <argument key="password">dbpassword</argument>
         <argument key="charset">UTF8</argument>
@@ -3285,7 +3281,11 @@
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
-    <service id="service_locator.ebdaf59977bc26dc6a191d4f5f8254cb" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+    <service id="service_locator.63f84423661c0fd0611294cfab8ae145" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
+      <tag name="container.service_locator"/>
+      <argument type="collection"/>
+    </service>
+    <service id="service_locator.09ed2a78ebb07fa438df2e4d861f219e" class="Symfony\Component\DependencyInjection\ServiceLocator" public="false">
       <tag name="container.service_locator"/>
       <argument type="collection"/>
     </service>
@@ -3502,7 +3502,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>je1BNQIJPG</argument>
       <argument>0</argument>
-      <argument>NmcLu4YRJ3NybhGNH4PHjO</argument>
+      <argument>P5o6mD4LMnOn7OQqFGV8Ac</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3510,7 +3510,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>tKJMvgFbSi</argument>
       <argument>0</argument>
-      <argument>NmcLu4YRJ3NybhGNH4PHjO</argument>
+      <argument>P5o6mD4LMnOn7OQqFGV8Ac</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3518,7 +3518,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>wmnJ35dfxo</argument>
       <argument>0</argument>
-      <argument>NmcLu4YRJ3NybhGNH4PHjO</argument>
+      <argument>P5o6mD4LMnOn7OQqFGV8Ac</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3526,7 +3526,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>xkjb6QZNZo</argument>
       <argument>0</argument>
-      <argument>NmcLu4YRJ3NybhGNH4PHjO</argument>
+      <argument>P5o6mD4LMnOn7OQqFGV8Ac</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
