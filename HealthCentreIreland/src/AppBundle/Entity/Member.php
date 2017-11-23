@@ -4,12 +4,18 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Member
  *
  * @ORM\Table(name="member")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\MemberRepository")
+ * @UniqueEntity(fields= "username") - These details match a current user!
+ * @UniqueEntity(fields= "email") - These details match a current user!
+ *
+ *
  */
 class Member implements UserInterface, \Serializable
 {
@@ -23,16 +29,18 @@ class Member implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @var string
      *
+     * @var string
      * @ORM\Column(name="username", type="string", length=255, unique=true)
+     *
      */
-    private $username;
+    protected $username;
 
     /**
-     * @var string
      *
+     * @var string
      * @ORM\Column(name="email", type="string", length=255, unique=true)
+     *
      */
     private $email;
 
@@ -148,27 +156,37 @@ class Member implements UserInterface, \Serializable
 
     public function serialize()
     {
-        // TODO: Implement serialize() method.
+        return serialize([
+            $this->id,
+            $this->username,
+            $this->password,
+        ]);
     }
 
     public function unserialize($serialized)
     {
-        // TODO: Implement unserialize() method.
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+            ) = unserialize($serialized);
     }
 
     public function eraseCredentials()
     {
-        // TODO: Implement eraseCredentials() method.
+        $this->plainPassword = null;
     }
 
     public function getSalt()
     {
-        // TODO: Implement getSalt() method.
+        return null;
     }
 
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        return[
+          'ROLE_USER',
+        ];
     }
 }
 

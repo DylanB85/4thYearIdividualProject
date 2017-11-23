@@ -122,6 +122,17 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'AppBundle\\Controller\\RegistrationController::registerAction',  '_route' => 'registration',);
         }
 
+        // handle_registration_form_submission
+        if ('/registration-form-submission' === $pathinfo) {
+            if ('POST' !== $canonicalMethod) {
+                $allow[] = 'POST';
+                goto not_handle_registration_form_submission;
+            }
+
+            return array (  '_controller' => 'AppBundle\\Controller\\RegistrationController::handleFormSubmissionAction',  '_route' => 'handle_registration_form_submission',);
+        }
+        not_handle_registration_form_submission:
+
         // login
         if ('/login' === $pathinfo) {
             return array (  '_controller' => 'AppBundle\\Controller\\SecurityController::loginAction',  '_route' => 'login',);
