@@ -112,9 +112,9 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'AppBundle\\Controller\\DefaultController::indexAction',  '_route' => 'homepage',);
         }
 
-        // app_illness_show
+        // illness
         if ('/illness' === $pathinfo) {
-            return array (  '_controller' => 'AppBundle\\Controller\\IllnessController::showAction',  '_route' => 'app_illness_show',);
+            return array (  '_controller' => 'AppBundle\\Controller\\IllnessController::arthritisAction',  '_route' => 'illness',);
         }
 
         // registration
@@ -132,6 +132,11 @@ class appDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'AppBundle\\Controller\\RegistrationController::handleFormSubmissionAction',  '_route' => 'handle_registration_form_submission',);
         }
         not_handle_registration_form_submission:
+
+        // deleteuser
+        if (0 === strpos($pathinfo, '/deleteuser') && preg_match('#^/deleteuser/(?P<id>[^/]++)$#s', $pathinfo, $matches)) {
+            return $this->mergeDefaults(array_replace($matches, array('_route' => 'deleteuser')), array (  '_controller' => 'AppBundle\\Controller\\RegistrationController::deleteUser',));
+        }
 
         // login
         if ('/login' === $pathinfo) {

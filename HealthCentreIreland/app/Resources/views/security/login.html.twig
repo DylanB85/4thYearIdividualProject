@@ -12,7 +12,10 @@
         <label for="_password" class="sr-only">Password:</label>
         <input type="password" id="_password" name="_password" class="form-control" placeholder="Password" required>
 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+        <input type="hidden" name="_target_path" value="{{ path('illness') }}"/>
+        Remember Me <input type="checkbox" name="_remember_me">
+        <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Sign in</button>
     </form>
+    <p>Not Signed Up?</p> <a href="{{ path('registration') }}">Register Now</a>
 
 {% endblock %}

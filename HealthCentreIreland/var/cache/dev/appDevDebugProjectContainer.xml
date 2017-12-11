@@ -617,7 +617,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>Xb5rLliT-W8yLg85qzxRWU</argument>
+      <argument>y2inZBI-xogFziQvEtB9o-</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -627,7 +627,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>Xb5rLliT-W8yLg85qzxRWU</argument>
+      <argument>y2inZBI-xogFziQvEtB9o-</argument>
       <call method="setLogger">
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
@@ -1713,6 +1713,7 @@
     <service id="security.authentication.manager" class="Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager" public="false">
       <argument type="iterator">
         <argument type="service" id="security.authentication.provider.dao.main"/>
+        <argument type="service" id="security.authentication.provider.rememberme.main"/>
         <argument type="service" id="security.authentication.provider.anonymous.main"/>
       </argument>
       <argument>true</argument>
@@ -2237,6 +2238,7 @@
       <argument type="collection">
         <argument>logout</argument>
         <argument>form_login</argument>
+        <argument>remember_me</argument>
         <argument>anonymous</argument>
       </argument>
     </service>
@@ -2266,6 +2268,9 @@
       </argument>
       <call method="addHandler">
         <argument type="service" id="security.logout.handler.session"/>
+      </call>
+      <call method="addHandler">
+        <argument type="service" id="security.authentication.rememberme.services.simplehash.main"/>
       </call>
     </service>
     <service id="security.logout.success_handler.main" class="Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler" public="false">
@@ -2331,6 +2336,9 @@
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
       <argument>null</argument>
+      <call method="setRememberMeServices">
+        <argument type="service" id="security.authentication.rememberme.services.simplehash.main"/>
+      </call>
     </service>
     <service id="security.authentication.form_entry_point.main" class="Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint" public="false">
       <argument type="service" id="http_kernel"/>
@@ -2338,14 +2346,46 @@
       <argument>login</argument>
       <argument>false</argument>
     </service>
+    <service id="security.authentication.provider.rememberme.main" class="Symfony\Component\Security\Core\Authentication\Provider\RememberMeAuthenticationProvider" public="false">
+      <argument type="service" id="security.user_checker"/>
+      <argument>ThisTokenIsNotSoSecretChangeIt</argument>
+      <argument>main</argument>
+    </service>
+    <service id="security.authentication.rememberme.services.simplehash.main" class="Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices" public="false">
+      <argument type="collection">
+        <argument type="service" id="security.user.provider.concrete.chain_provider"/>
+      </argument>
+      <argument>ThisTokenIsNotSoSecretChangeIt</argument>
+      <argument>main</argument>
+      <argument type="collection">
+        <argument key="lifetime">604800</argument>
+        <argument key="path">/</argument>
+        <argument key="name">REMEMBERME</argument>
+        <argument key="domain">null</argument>
+        <argument key="secure">false</argument>
+        <argument key="httponly">true</argument>
+        <argument key="always_remember_me">false</argument>
+        <argument key="remember_me_parameter">_remember_me</argument>
+      </argument>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+    </service>
+    <service id="security.authentication.listener.rememberme.main" class="Symfony\Component\Security\Http\Firewall\RememberMeListener" public="false">
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="security.authentication.rememberme.services.simplehash.main"/>
+      <argument type="service" id="security.authentication.manager"/>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
+      <argument>true</argument>
+      <argument type="service" id="security.authentication.session_strategy"/>
+    </service>
     <service id="security.authentication.listener.anonymous.main" class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
       <argument type="service" id="security.token_storage"/>
-      <argument>5a15c6c54fef58.13089622</argument>
+      <argument>5a2eb99f4f6f46.72676983</argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
       <argument type="service" id="security.authentication.manager"/>
     </service>
     <service id="security.authentication.provider.anonymous.main" class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-      <argument>5a15c6c54fef58.13089622</argument>
+      <argument>5a2eb99f4f6f46.72676983</argument>
     </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" public="false">
       <argument type="service" id="security.token_storage"/>
@@ -2364,6 +2404,7 @@
         <argument type="service" id="security.context_listener.0"/>
         <argument type="service" id="security.logout_listener.main"/>
         <argument type="service" id="security.authentication.listener.form.main"/>
+        <argument type="service" id="security.authentication.listener.rememberme.main"/>
         <argument type="service" id="security.authentication.listener.anonymous.main"/>
         <argument type="service" id="security.access_listener"/>
       </argument>
@@ -3340,6 +3381,8 @@
     </service>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\DefaultController" class="AppBundle\Controller\DefaultController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\DefaultController" class="AppBundle\Controller\DefaultController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\IllnessController" class="AppBundle\Controller\IllnessController" autowire="true" abstract="true"/>
+    <service id="abstract.instanceof.AppBundle\Controller\IllnessController" class="AppBundle\Controller\IllnessController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\RegistrationController" class="AppBundle\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id="abstract.instanceof.AppBundle\Controller\RegistrationController" class="AppBundle\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id="instanceof.Symfony\Bundle\FrameworkBundle\Controller\Controller.0.AppBundle\Controller\SecurityController" class="AppBundle\Controller\SecurityController" autowire="true" abstract="true"/>
@@ -3571,7 +3614,7 @@
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>je1BNQIJPG</argument>
       <argument>0</argument>
-      <argument>Xb5rLliT-W8yLg85qzxRWU</argument>
+      <argument>y2inZBI-xogFziQvEtB9o-</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3579,7 +3622,7 @@
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>tKJMvgFbSi</argument>
       <argument>0</argument>
-      <argument>Xb5rLliT-W8yLg85qzxRWU</argument>
+      <argument>y2inZBI-xogFziQvEtB9o-</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3587,7 +3630,7 @@
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>wmnJ35dfxo</argument>
       <argument>0</argument>
-      <argument>Xb5rLliT-W8yLg85qzxRWU</argument>
+      <argument>y2inZBI-xogFziQvEtB9o-</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3595,7 +3638,7 @@
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface" public="false" lazy="true">
       <argument>xkjb6QZNZo</argument>
       <argument>0</argument>
-      <argument>Xb5rLliT-W8yLg85qzxRWU</argument>
+      <argument>y2inZBI-xogFziQvEtB9o-</argument>
       <argument>C:\Users\dylan\Desktop\4thYearIndividualProject\HealthCentreIreland\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>

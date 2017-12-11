@@ -11,6 +11,8 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class SecurityController extends Controller
 {
@@ -19,7 +21,11 @@ class SecurityController extends Controller
      */
     public function loginAction()
     {
-        return $this->render('security/login.html.twig',[
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('illness');
+        }
+            return $this->render('security/login.html.twig',[
             ]);
     }
 

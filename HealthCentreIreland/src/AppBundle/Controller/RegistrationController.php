@@ -31,6 +31,11 @@ class RegistrationController extends Controller
 
         $form = $this->createMemberRegistrationForm($member);
 
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER'))
+        {
+            return $this->redirectToRoute('illness');
+        }
+
         return $this->render('registration/register.html.twig',[
             'registration_form' => $form->createView(),
 
@@ -83,7 +88,26 @@ class RegistrationController extends Controller
 
         $this->addFlash('success', 'You are now registered');
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('illness');
+    }
+
+    /**
+     *
+     * @Route("/deleteuser/{id}", name="deleteuser")
+     */
+    public function deleteUser($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $member = $em->getRepository('AppBundle:Member')->find($id);
+
+        if(!$member){
+            return $this->redirectToRoute('login');
+        }
+
+        $em->remove($member);
+        $em->flush();
+        return $this->redirectToRoute('login');
     }
 
     private function createMemberRegistrationForm($member)

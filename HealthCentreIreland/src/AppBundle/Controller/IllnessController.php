@@ -10,15 +10,19 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 
-class IllnessController
+class IllnessController extends Controller
 {
     /**
-     * @Route("/illness")
+     * @Route("/illness", name="illness")
      */
-    public function showAction()
+    public function arthritisAction()
     {
-        return new Response("Arthritis");
+        return $this->render('illness/arthritis.html.twig',[
+        ]);
     }
 }

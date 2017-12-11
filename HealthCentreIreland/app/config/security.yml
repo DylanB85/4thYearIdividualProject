@@ -42,7 +42,13 @@ security:
                 login_path: login
                 check_path: login
             logout: true
+
             anonymous: ~
+
+            remember_me:
+              secret: '%secret%'
+              lifetime: 604800
+              path: /
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
