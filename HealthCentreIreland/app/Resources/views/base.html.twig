@@ -1,17 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Health Centre Ireland{% endblock %}</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-              integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-        <link rel="stylesheet" href="../../../web/css/dropdown.css">
-        <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Health Centre Ireland{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../web/css/dropdown.css">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}"/>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
     <body>
-    <nav class="nabar navbar-expand-md navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
         <a class="navbar-brand" a href="#">Health Centre Ireland</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarsExampleDDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,29 +32,26 @@
             <li class="nav-item">
                 <a class="nav-link" href="#">Message Board</a>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="dropdown1" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">Profile</a>
-                <div class = "dropdown-content" aria-labelledby="dropdown1">
-                    <a class="dropdown-item" href="#">My Profile</a>
-                    <a class="dropdown-item" href="{{ logout_path('main') }}">Log Out</a>
-                    <a class="dropdown-item" href="#">Delete Profile</a>
-                </div>
-            </li>
+
+             <li class="nav-item">
+                 {% if app.user %}
+                 <a class="nav-link" href="
+                    {{ logout_path('main') }}">
+                     Log Out</a>
+                 {% endif %}
+
+             </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="text" placeholder="Search"
-                aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
         </div>
+    </nav>
+
 
      {#    {% if app.user %}
      <a href="{{ logout_path('main') }}">Logout</a>
     {% endif %}#}
 
 
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+    {% block body %}{% endblock %}
+    {% block javascripts %}{% endblock %}
     </body>
 </html>

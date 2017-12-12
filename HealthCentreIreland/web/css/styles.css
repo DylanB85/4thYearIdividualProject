@@ -3,7 +3,7 @@
 }
 
 .reg{
-    padding-top: 50px;
+    padding-top: 100px;
     font-weight: bold;
     margin-left: auto;
     margin-right: auto;
@@ -11,6 +11,17 @@
 }
 
 .form-signin{
+    padding-top: 100px;
     margin: 0 auto;
     max-width: 400px;
+}
+
+.signup{
+    padding-top: 10px;
+    margin-left: 125px;
+}
+
+.art{
+    padding-top: 10px;
+    text-align: center;
 }

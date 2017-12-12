@@ -40,7 +40,9 @@ security:
             provider: chain_provider
             form_login:
                 login_path: login
+                failure_path: login
                 check_path: login
+                success_handler: db.authentication.succes_handlers
             logout: true
 
             anonymous: ~

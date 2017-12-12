@@ -15,7 +15,8 @@
         <input type="hidden" name="_target_path" value="{{ path('illness') }}"/>
         Remember Me <input type="checkbox" name="_remember_me">
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Sign in</button>
+        <div class="signup"><p>Not Signed Up?</p> <a href="{{ path('registration') }}">Register Now</a></div>
     </form>
-    <p>Not Signed Up?</p> <a href="{{ path('registration') }}">Register Now</a>
+
 
 {% endblock %}
