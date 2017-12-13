@@ -13,6 +13,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use AppBundle\Security\AuthenticationSuccessHandler;
+use AppBundle\Security\AuthenticationFailedHandler;
 
 class SecurityController extends Controller
 {
@@ -23,11 +25,12 @@ class SecurityController extends Controller
     {
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER'))
         {
-            return $this->redirectToRoute('illness');
+            return $this->redirectToRoute('arthritis');
         }
             return $this->render('security/login.html.twig',[
             ]);
     }
+
 
     /**
      * @Route("/logout", name="logout")

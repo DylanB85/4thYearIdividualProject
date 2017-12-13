@@ -36,9 +36,17 @@ services:
     #         $someArgument: 'some_value'
 
 
-    db.authentication.succes_handlers:
+    crv.authentication.success_handlers:
         class: AppBundle\Security\AuthenticationSuccessHandler
         arguments:
             - "@security.http_utils"
             - []
             - "@session.flash_bag"
+
+    crv.authentication.failure_handlers:
+        class: AppBundle\Security\AuthenticationFailedHandler
+        arguments:
+                - "@http_kernal"
+                - "@security.http_utils"
+                - []
+                - "@logger"

@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class IllnessController extends Controller
 {
     /**
-     * @Route("/illness", name="illness")
+     * @Route("/illness", name="arthritis")
      */
     public function arthritisAction()
     {

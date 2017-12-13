@@ -8,7 +8,7 @@
 
 namespace AppBundle\Controller;
 
-
+use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Member;
 use AppBundle\Form\MemberType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -88,26 +88,7 @@ class RegistrationController extends Controller
 
         $this->addFlash('success', 'You are now registered');
 
-        return $this->redirectToRoute('illness');
-    }
-
-    /**
-     *
-     * @Route("/deleteuser/{id}", name="deleteuser")
-     */
-    public function deleteUser($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $member = $em->getRepository('AppBundle:Member')->find($id);
-
-        if(!$member){
-            return $this->redirectToRoute('login');
-        }
-
-        $em->remove($member);
-        $em->flush();
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('arthritis');
     }
 
     private function createMemberRegistrationForm($member)
@@ -116,4 +97,38 @@ class RegistrationController extends Controller
             'action'=> $this->generateUrl('handle_registration_form_submission')
         ]);
     }
+
+    /**
+     *
+     * @Route("/deleteuser", name="deleteuser")
+     */
+    public function deleteUser(Request $request)
+    {
+
+        $user = $this->getUser();
+        $member = new Member();
+
+        $password = $this->get('security.password_encoder')
+            ->encodePassword($member, $member->getPlainPassword());
+
+        if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER'))
+        {
+
+            $token = new UsernamePasswordToken(
+                $member,
+                $password,
+                'main',
+                $member->getRoles()
+            );
+
+            $this->get('security.token_storage')->setToken(null);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($user);
+            $em->flush();
+
+            return $this->redirectToRoute('login');
+        }
+    }
+
 }

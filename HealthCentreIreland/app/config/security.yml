@@ -42,7 +42,8 @@ security:
                 login_path: login
                 failure_path: login
                 check_path: login
-                success_handler: db.authentication.succes_handlers
+                success_handler: crv.authentication.success_handlers
+                success_handler: crv.authentication.failure_handlers
             logout: true
 
             anonymous: ~
