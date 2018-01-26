@@ -19,7 +19,7 @@ class MemberType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('username', TextType::class)->add('email', EmailType::class)->add('plainPassword', RepeatedType::class,[
+        $builder->add('username', TextType::class)->add('email', EmailType::class)->add('categorys', TextType::class)->add('plainPassword', RepeatedType::class,[
             'type'=>PasswordType::class,
             'first_options' => [
                 'label' => 'Password ',

@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Category;
 use Symfony\Component\HttpFoundation\Session\Session;
 use AppBundle\Entity\Member;
 use AppBundle\Form\MemberType;
@@ -33,7 +34,7 @@ class RegistrationController extends Controller
 
         if($this->container->get('security.authorization_checker')->isGranted('ROLE_USER'))
         {
-            return $this->redirectToRoute('illness');
+            return $this->redirectToRoute('arthritis');
         }
 
         return $this->render('registration/register.html.twig',[

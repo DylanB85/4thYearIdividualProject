@@ -1,0 +1,9 @@
+AppBundle\Entity\Member:
+    type: entity
+      # ...
+    manyToOne:
+        category:
+            targetEntity: AppBundle\Entity\Category
+            inversedBy: members
+            joinColumn:
+                nullable: true

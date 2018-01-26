@@ -3,6 +3,9 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Symfony\Bundle\FrameworkBundle\Tests\Fixtures\Validation\Category;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -44,7 +47,16 @@ class Member implements UserInterface, \Serializable
      */
     private $email;
 
+    /**
+     * @var string
+     * @ORM\Column(name="categorys", type="string", length=255)
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Category", mappedBy="member")
+     */
+    private $categorys;
+
+
     private $plainPassword;
+
 
     /**
      * @var string
@@ -63,6 +75,7 @@ class Member implements UserInterface, \Serializable
     {
         return $this->id;
     }
+
 
     /**
      * Set username
@@ -153,12 +166,40 @@ class Member implements UserInterface, \Serializable
     }
 
 
+    /**
+     * Member constructor.
+     */
+    public function __construct()
+    {
+        $this->categorys = new ArrayCollection();
+    }
+
+    /**
+     * @param string $categorys
+     *
+     * @return Member
+     */
+
+    public function setCategorys($categorys)
+    {
+        $this->categorys = $categorys;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategorys()
+    {
+        return $this->categorys;
+    }
+
 
     public function serialize()
     {
         return serialize([
             $this->id,
             $this->username,
+            $this->categorys,
             $this->password,
         ]);
     }
@@ -168,6 +209,7 @@ class Member implements UserInterface, \Serializable
         list(
             $this->id,
             $this->username,
+            $this->categorys,
             $this->password,
             ) = unserialize($serialized);
     }
