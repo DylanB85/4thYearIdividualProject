@@ -65,5 +65,7 @@ security:
       - {path: ^/(login|register)$, role: IS_AUTHENTICATED_ANONYMOUSLY}
       - {path: ^/registration-form-submission$, role: IS_AUTHENTICATED_ANONYMOUSLY}
       - {path: ^/recover$, role: IS_AUTHENTICATED_ANONYMOUSLY}
+      - {path: ^/reset/confirm$, role: IS_AUTHENTICATED_ANONYMOUSLY}
+      - {path: ^/reset/request$, role: IS_AUTHENTICATED_ANONYMOUSLY}
       - {path: ^/, role: ROLE_USER}
       - {path: ^/illness$, role: ROLE_USER}

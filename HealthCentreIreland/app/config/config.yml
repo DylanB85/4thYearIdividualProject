@@ -18,7 +18,7 @@ framework:
     form: ~
     csrf_protection: ~
     validation: { enable_annotations: true }
-    #serializer: { enable_annotations: true }
+    serializer: { enable_annotations: true }
     templating:
         engines: ['twig']
     default_locale: '%locale%'
@@ -32,6 +32,18 @@ framework:
     assets: ~
     php_errors:
         log: true
+
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: AppBundle\Entity\Member
+    from_email:
+          address: "reset@healthcentre.ie"
+          sender_name: "Health Centre"
+    service:
+        mailer: user.mailer.rest
+
 
 # Twig Configuration
 twig:
@@ -68,3 +80,4 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
+

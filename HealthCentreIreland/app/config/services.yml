@@ -50,3 +50,10 @@ services:
                 - "@security.http_utils"
                 - []
                 - "@logger"
+
+    user.mailer.rest:
+        class: AppBundle\Mailer\ResetMailer
+        autoconfigure: false
+        public: false
+        autowire: false
+        parent: fos_user.mailer.twig_swift

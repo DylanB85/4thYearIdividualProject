@@ -29,7 +29,7 @@ class Member implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      *
@@ -45,17 +45,17 @@ class Member implements UserInterface, \Serializable
      * @ORM\Column(name="email", type="string", length=255, unique=true)
      *
      */
-    private $email;
+    protected $email;
 
     /**
      * @var string
      * @ORM\Column(name="categorys", type="string", length=255)
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\Category", mappedBy="member")
      */
-    private $categorys;
+    protected $categorys;
 
 
-    private $plainPassword;
+    protected $plainPassword;
 
 
     /**
@@ -63,7 +63,7 @@ class Member implements UserInterface, \Serializable
      *
      * @ORM\Column(name="password", type="string", length=64)
      */
-    private $password;
+    protected $password;
 
 
     /**

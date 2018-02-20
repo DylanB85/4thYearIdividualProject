@@ -52,6 +52,11 @@ class ComposerStaticInitc831df7090b5aa20c04f6237c383449f
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
         ),
+        'N' => 
+        array (
+            'Nelmio\\CorsBundle\\' => 18,
+            'Negotiation\\' => 12,
+        ),
         'M' => 
         array (
             'Monolog\\' => 8,
@@ -63,6 +68,9 @@ class ComposerStaticInitc831df7090b5aa20c04f6237c383449f
         'F' => 
         array (
             'Fig\\Link\\' => 9,
+            'FOS\\UserBundle\\' => 15,
+            'FOS\\RestBundle\\' => 15,
+            'FOS\\JsRoutingBundle\\' => 20,
         ),
         'D' => 
         array (
@@ -179,6 +187,14 @@ class ComposerStaticInitc831df7090b5aa20c04f6237c383449f
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
+        'Nelmio\\CorsBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/nelmio/cors-bundle',
+        ),
+        'Negotiation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/willdurand/negotiation/src/Negotiation',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -190,6 +206,18 @@ class ComposerStaticInitc831df7090b5aa20c04f6237c383449f
         'Fig\\Link\\' => 
         array (
             0 => __DIR__ . '/..' . '/fig/link-util/src',
+        ),
+        'FOS\\UserBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/user-bundle',
+        ),
+        'FOS\\RestBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/rest-bundle',
+        ),
+        'FOS\\JsRoutingBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/friendsofsymfony/jsrouting-bundle',
         ),
         'Doctrine\\Instantiator\\' => 
         array (
@@ -236,6 +264,13 @@ class ComposerStaticInitc831df7090b5aa20c04f6237c383449f
                 0 => __DIR__ . '/..' . '/sensiolabs/security-checker',
             ),
         ),
+        'J' => 
+        array (
+            'JsonpCallbackValidator' => 
+            array (
+                0 => __DIR__ . '/..' . '/willdurand/jsonp-callback-validator/src',
+            ),
+        ),
         'D' => 
         array (
             'Doctrine\\ORM\\' => 
@@ -261,6 +296,13 @@ class ComposerStaticInitc831df7090b5aa20c04f6237c383449f
             'Doctrine\\Common\\Annotations\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/annotations/lib',
+            ),
+        ),
+        'A' => 
+        array (
+            'ADesigns\\CalendarBundle' => 
+            array (
+                0 => __DIR__ . '/..' . '/adesigns/calendar-bundle',
             ),
         ),
     );
